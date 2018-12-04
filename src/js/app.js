@@ -11,7 +11,7 @@ $(document).ready(function () {
 });
 
 const print_table = (table) =>{
-    document.write('<table style="width:50%"> \n' +
+    document.write('<table style="width:100%"> \n' +
         '<tr> \n' +
         '<th>location</th>' +
         '<th>type</th>' +
@@ -24,7 +24,7 @@ const print_table = (table) =>{
         document.write('<tr><td>' + table[i].location + '</td>');
         document.write('<td>' + table[i].type + '</td>');
         document.write('<td>' + table[i].name + '</td>');
-        document.write('<td>' + table[i].condition + '</td>');
+        document.write('<td>'  + table[i].condition + '</td>');
         document.write('<td>' + table[i].value + '</td></tr>');
     }
     return;
