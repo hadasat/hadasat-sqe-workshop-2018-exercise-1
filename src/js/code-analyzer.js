@@ -20,7 +20,7 @@ const eval_variables = (param_array) => {
             let name = x.id.name;
             let condition= '';
             let value;
-            if(x.init != 'undefined')
+            if(x.init != undefined)
                 value = x.init.value;
             else
                 value = '';
@@ -55,8 +55,7 @@ const eval_function_decleration = (code) => {
 const eval_block_statement = (statment_array) =>{
     statment_array.map (
         (x) => {
-            if(x != null)
-                parse_start(x);
+            parse_start(x);
         }
     );
 
@@ -69,7 +68,7 @@ const eval_variable_declaration = (code) => {
 const eval_expression_statement = (code) =>{
     let location = code.loc.start.line;
     let type = 'assignment expression';
-    let name = code.left.object.name;
+    let name = code.left.name;
     let condition = '';
     let line = code_in_lines[location-1];
     let start_value = code.right.loc.start.column;
@@ -91,11 +90,10 @@ const eval_while_statement = (code) => {
 };
 
 const parse_else = (code) => {
-    if(code != null)
+    if(code != undefined)
     {
         if (code.type != 'IfStatement') {
-            parse_start(code);
-        }
+            parse_start(code);}
         else {
             let location = code.loc.start.line;
             let type = 'else if statement';
@@ -131,7 +129,7 @@ const eval_for_statement = (code) => {
     let name = '';
     let start_condition = code.test.loc.start.column;
     let end_condition = code.test.loc.end.column;
-    let condition = " " +code_in_lines[location -1].substring(start_condition,end_condition) +" ";
+    let condition = ' ' +code_in_lines[location -1].substring(start_condition,end_condition) +' ';
     let value = '';
     table.push({location:location ,type:type,name:name,condition:condition,value:value});
     //parse_start(code.consequent);
@@ -151,7 +149,7 @@ const eval_return_statement = (code) =>{
 };
 
 const parse_start = (code) => {
-    if (code != null) {
+    if (code != undefined) {
         switch (code.type) {
         case 'Program' :
             parse_start(code.body[0]);
@@ -170,18 +168,16 @@ const parse_start = (code) => {
 };
 
 const parsed_vars = (code) => {
-    if (code != null) {
-        switch (code.type) {
-        case 'VariableDeclaration' :
-            eval_variable_declaration(code);
-            break;
-        case 'ExpressionStatement' :
-            eval_expression_statement(code.expression);
-            break;
-        default :
-            parse_loops(code);
-            break;
-        }
+    switch (code.type) {
+    case 'VariableDeclaration' :
+        eval_variable_declaration(code);
+        break;
+    case 'ExpressionStatement' :
+        eval_expression_statement(code.expression);
+        break;
+    default :
+        parse_loops(code);
+        break;
     }
 };
 

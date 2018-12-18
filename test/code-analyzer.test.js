@@ -2,6 +2,8 @@ import assert from 'assert';
 import { parseCode} from '../src/js/code-analyzer';
 
 let if_code = 'if( 10 > 2){let a =10;}else if (2<5) {let b =20;} else {c = 10}';
+let if_code_without_else = 'if( 10 > 2){let a =10;}';
+
 
 describe('if and else if', () => {
     it('is parsing assinment operator', () => {
@@ -78,5 +80,10 @@ describe('while and loop', () => {
             parseCode(for_code)[7].type,
             'return statement');
     });
-
+    it('empty program', () => {
+        assert.equal(parseCode(''), '');
+    });
+    it('empty program', () => {
+        assert.equal(parseCode(if_code_without_else).length,2);
+    });
 });
